@@ -16,7 +16,7 @@ public class Pet {
         System.out.println("Новый Pet создан");
     }
 
-    private String species;
+    private Species species;
     private String nickname;
     private int age;
     private int trickLevel;
@@ -26,12 +26,12 @@ public class Pet {
     public Pet() {
     }
 
-    public Pet(String species, String nickname) {
+    public Pet(Species species, String nickname) {
         this.species = species;
         this.nickname = nickname;
     }
 
-    public Pet(String species, String nickname, int age, int trickLevel, String[] habits) {
+    public Pet(Species species, String nickname, int age, int trickLevel, String[] habits) {
         this.species = species;
         this.nickname = nickname;
         this.age = age;
@@ -39,11 +39,11 @@ public class Pet {
         this.habits = habits;
     }
 
-    public String getSpecies() {
+    public Species getSpecies() {
         return species;
     }
 
-    public void setSpecies(String species) {
+    public void setSpecies(Species species) {
         this.species = species;
     }
 
@@ -96,7 +96,10 @@ public class Pet {
         return species + "{nickname='" + nickname +
                 ", age=" + age +
                 ", trickLevel=" + trickLevel +
-                ", habits=" + Arrays.toString(habits) + '}';
+                ", habits=" + Arrays.toString(habits) +
+                ", canFly=" + species.canFly() +
+                ", numberOfLegs=" + species.getNumberOfLegs() +
+                ", hasFur=" + species.hasFur() + '}';
     }
 
     @Override
@@ -113,4 +116,9 @@ public class Pet {
         result = 31 * result + Arrays.hashCode(habits);
         return result;
     }
+    @Override
+    protected void finalize() {
+        System.out.println("Pet удаляется: " + this);
+    }
+
 }

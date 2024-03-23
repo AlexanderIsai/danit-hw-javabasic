@@ -17,13 +17,13 @@ public class Main {
         father.setSchedule(child1.initSchedule());
 
 
-        Pet pet1 = new Pet("cat", "Kitty", 5, 10, new String[]{"eat", "sleep", "play"});
-        Pet pet2 = new Pet("dog", "Doggy");
+        Pet pet1 = new Pet(Species.CAT, "Kitty", 5, 10, new String[]{"eat", "sleep", "play"});
+        Pet pet2 = new Pet(Species.DOG, "Doggy");
         pet2.setAge(7);
         pet2.setTrickLevel(40);
         pet2.setHabits(new String[]{"eat", "walk", "bark"});
         Pet pet3 = new Pet();
-        pet3.setSpecies("fish");
+        pet3.setSpecies(Species.FISH);
         pet3.setNickname("Fishy");
         pet3.setAge(3);
         pet3.setTrickLevel(10);
@@ -53,6 +53,11 @@ public class Main {
         System.out.println(family1.deleteChild(child3));
         System.out.println(Arrays.toString(family1.getChildren()));
         System.out.println(family1.countFamily());
+
+//        for (int i = 0; i < 1000000; i++) {
+//            Human humanTest = new Human("Test", "Testovich" + i, 2000);
+//        }
+
     }
 
     public static void printFields(Object obj) throws IllegalAccessException {

@@ -130,4 +130,8 @@ public class Family {
         result = 31 * result + Arrays.hashCode(children);
         return result;
     }
+    @Override
+    protected void finalize() {
+        System.out.println("Family удаляется: " + this);
+    }
 }

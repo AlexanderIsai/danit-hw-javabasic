@@ -1,3 +1,4 @@
+import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
@@ -124,19 +125,19 @@ public class Human {
 
     public String[][] initSchedule(){
         String[][] schedule = new String[7][2];
-        schedule[0][0] = "Sunday";
+        schedule[0][0] = DayOfWeek.SUNDAY.name();
         schedule[0][1] = "have a rest, play Volleyball";
-        schedule[1][0] = "Monday";
+        schedule[1][0] = DayOfWeek.MONDAY.name();
         schedule[1][1] = "Make java-homework; create working plan";
-        schedule[2][0] = "Tuesday";
+        schedule[2][0] = DayOfWeek.TUESDAY.name();
         schedule[2][1] = "Something read; visit online-lesson";
-        schedule[3][0] = "Wednesday";
+        schedule[3][0] = DayOfWeek.WEDNESDAY.name();
         schedule[3][1] = "Work with the project; job searching";
-        schedule[4][0] = "Thursday";
+        schedule[4][0] = DayOfWeek.THURSDAY.name();
         schedule[4][1] = "English/German learn; visit online-lesson; shopping";
-        schedule[5][0] = "Friday";
+        schedule[5][0] = DayOfWeek.FRIDAY.name();
         schedule[5][1] = "Make java-homework; meet with friends";
-        schedule[6][0] = "Saturday";
+        schedule[6][0] = DayOfWeek.SATURDAY.name();
         schedule[6][1] = "Visit online-lesson, make homework";
         return schedule;
     }
@@ -166,5 +167,9 @@ public class Human {
         int result = Objects.hash(name, surname, year, iq);
         result = 31 * result + Arrays.deepHashCode(schedule);
         return result;
+    }
+    @Override
+    protected void finalize() {
+        System.out.println("Human удаляется: " + this);
     }
 }
