@@ -3,7 +3,7 @@
  *
  * @author Alexander Isai on 23.03.2024.
  */
-public enum Enum {
+public enum DayOfWeek {
     MONDAY,
     TUESDAY,
     WEDNESDAY,
