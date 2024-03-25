@@ -1,5 +1,13 @@
+package people;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import people.Family;
+import people.Human;
+import pets.Dog;
+import pets.Pet;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -67,7 +75,7 @@ class FamilyTest {
 
     @Test
     void testToString() {
-        Pet pet = new Pet(Species.DOG, "Rex", 5, 75, new String[]{"eat", "play"});
+        Pet pet = new Dog("Rex", 5, 75, new String[]{"eat", "play"});
         family.setPet(pet);
 
         String expected = "Family{mother=Human{name='Mutter', surname='Schmidt', year=1965, iq=0, schedule=null}, " +
@@ -103,5 +111,19 @@ class FamilyTest {
         assertEquals(family.hashCode(), family2.hashCode());
         family2.addChild(alien);
         assertNotEquals(family.hashCode(), family2.hashCode());
+    }
+
+    @Test
+    void bornChild() {
+        int familySize = family.getChildren().length;
+        Human child = family.bornChild();
+
+        assertEquals(familySize + 1, family.getChildren().length);
+        assertNotNull(child);
+        assertTrue(Arrays.asList(family.getChildren()).contains(child));
+        assertEquals(child.getFamily(), family);
+        assertEquals(child.getSurname(), family.getFather().getSurname());
+        assertEquals(child.getIq(), (family.getMother().getIq() + family.getFather().getIq()) / 2);
+        assertTrue(child instanceof Man || child instanceof Woman);
     }
 }

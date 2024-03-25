@@ -1,19 +1,25 @@
+package people;
+
+import people.Human;
+import pets.Pet;
+
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * description
  *
  * @author Alexander Isai on 20.03.2024.
  */
-public class Family {
+public class Family implements HumanCreator{
 
     static {
-        System.out.println("Загрузился новый класс Family");
+        System.out.println("Загрузился новый класс people.Family");
     }
 
     {
-        System.out.println("Новая Family создана");
+        System.out.println("Новая people.Family создана");
     }
 
     private Human mother;
@@ -132,6 +138,18 @@ public class Family {
     }
     @Override
     protected void finalize() {
-        System.out.println("Family удаляется: " + this);
+        System.out.println("people.Family удаляется: " + this);
+    }
+
+    @Override
+    public Human bornChild() {
+        Random random = new Random();
+        String[] boysNames = new String[]{"Ivan", "Petr", "Pablo", "Alex", "Olaf"};
+        String[] girlsNames = new String[]{"Maria", "Anna", "Helen", "Olga", "Kate"};
+        Human child = random.nextBoolean() ? new Man(boysNames[random.nextInt(boysNames.length)], father.getSurname(), 2024) : new Woman(girlsNames[random.nextInt(girlsNames.length)], father.getSurname(), 2024);
+        child.setIq((father.getIq() + mother.getIq()) / 2);
+        this.addChild(child);
+        child.setFamily(this);
+        return child;
     }
 }

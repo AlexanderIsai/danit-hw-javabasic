@@ -1,3 +1,9 @@
+import people.Family;
+import people.Human;
+import pets.DomesticCat;
+import pets.Fish;
+import pets.Pet;
+
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
@@ -15,19 +21,10 @@ public class Main {
 
         mother.setSchedule(child1.initSchedule());
         father.setSchedule(child1.initSchedule());
+        mother.setIq(140);
+        father.setIq(160);
+        DomesticCat pet1 = new DomesticCat("Kitty", 5, 10, new String[]{"eat", "sleep", "play"});
 
-
-        Pet pet1 = new Pet(Species.CAT, "Kitty", 5, 10, new String[]{"eat", "sleep", "play"});
-        Pet pet2 = new Pet(Species.DOG, "Doggy");
-        pet2.setAge(7);
-        pet2.setTrickLevel(40);
-        pet2.setHabits(new String[]{"eat", "walk", "bark"});
-        Pet pet3 = new Pet();
-        pet3.setSpecies(Species.FISH);
-        pet3.setNickname("Fishy");
-        pet3.setAge(3);
-        pet3.setTrickLevel(10);
-        pet3.setHabits(new String[]{"eat", "walk", "bark"});
 
         Family family1 = new Family(mother, father);
         family1.addChild(child1);
@@ -35,14 +32,14 @@ public class Main {
         family1.addChild(child3);
         family1.setPet(pet1);
         System.out.println(family1);
-        family1.getPet().foul();
+        pet1.foul();
         family1.getPet().eat();
         family1.getPet().respond();
         child1.describePet();
         child1.describePet();
 
 
-        System.out.println(child1.feedPet(true));
+       System.out.println(child1.feedPet(true));
         System.out.println(family1.countFamily());
 
 
@@ -53,9 +50,15 @@ public class Main {
         System.out.println(family1.deleteChild(child3));
         System.out.println(Arrays.toString(family1.getChildren()));
         System.out.println(family1.countFamily());
+        Fish fish = new Fish("Fishy", 3, 10, new String[]{"eat", "walk", "bark"});
+        System.out.println(fish.getNickname());
+        fish.respond();
+        family1.bornChild();
+        System.out.println(family1.getChildren()[1].getFamily());
+        System.out.println(family1.countFamily());
 
 //        for (int i = 0; i < 1000000; i++) {
-//            Human humanTest = new Human("Test", "Testovich" + i, 2000);
+//            people.Human humanTest = new people.Human("Test", "Testovich" + i, 2000);
 //        }
 
     }

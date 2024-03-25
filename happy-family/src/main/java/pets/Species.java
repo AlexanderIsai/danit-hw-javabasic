@@ -1,3 +1,5 @@
+package pets;
+
 /**
  * description
  *
@@ -5,9 +7,11 @@
  */
 public enum Species {
     DOG(false, 4, true),
-    CAT(false, 4, true),
+    DOMESTICCAT(false, 4, true),
+    ROBOCAT(false, 4, false),
     BIRD(true, 2, false),
-    FISH(false, 0, false);
+    FISH(false, 0, false),
+    UNKNOWN(false, 0, false);
 
     private final boolean canFly;
     private final int numberOfLegs;

@@ -1,3 +1,5 @@
+package pets;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -6,17 +8,17 @@ import java.util.Objects;
  *
  * @author Alexander Isai on 19.03.2024.
  */
-public class Pet {
+public abstract class Pet {
 
     static {
-        System.out.println("Загрузился новый класс Pet");
+        System.out.println("Загрузился новый класс pets.Pet");
     }
 
     {
-        System.out.println("Новый Pet создан");
+        System.out.println("Новый pets.Pet создан");
     }
 
-    private Species species;
+    protected Species species = Species.UNKNOWN;
     private String nickname;
     private int age;
     private int trickLevel;
@@ -26,13 +28,11 @@ public class Pet {
     public Pet() {
     }
 
-    public Pet(Species species, String nickname) {
-        this.species = species;
+    public Pet(String nickname) {
         this.nickname = nickname;
     }
 
-    public Pet(Species species, String nickname, int age, int trickLevel, String[] habits) {
-        this.species = species;
+    public Pet(String nickname, int age, int trickLevel, String[] habits) {
         this.nickname = nickname;
         this.age = age;
         this.trickLevel = trickLevel;
@@ -52,7 +52,7 @@ public class Pet {
     }
 
     public void setNickname(String nickname) {
-        this.nickname = nickname;
+        this.species = species == null ? Species.UNKNOWN : species;
     }
 
     public int getAge() {
@@ -83,13 +83,8 @@ public class Pet {
         System.out.println("Я ї'м!");
     }
 
-    public void respond(){
-        System.out.printf("Привіт, хазяїн. Я - %s. Я скучив!\n", this.nickname);
-    }
+    public abstract void respond();
 
-    public void foul(){
-        System.out.println("Потрібно добре замести сліди...");
-    }
 
     @Override
     public String toString() {
@@ -118,7 +113,7 @@ public class Pet {
     }
     @Override
     protected void finalize() {
-        System.out.println("Pet удаляется: " + this);
+        System.out.println("pets.Pet удаляется: " + this);
     }
 
 }

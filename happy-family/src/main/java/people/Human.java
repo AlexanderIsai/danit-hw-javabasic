@@ -1,3 +1,4 @@
+package people;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -10,11 +11,11 @@ import java.util.Random;
  */
 public class Human {
     static {
-        System.out.println("Загрузился новый класс Human");
+        System.out.println("Загрузился новый класс people.Human");
     }
 
     {
-        System.out.println("Новый Human создан");
+        System.out.println("Новый people.Human создан");
     }
 
     private String name;
@@ -145,8 +146,8 @@ public class Human {
 
     @Override
     public String toString() {
-        return "Human{" +
-                "name='" + name + '\'' +
+        return getClass().getSimpleName() +
+                "{name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", year=" + year +
                 ", iq=" + iq +
@@ -170,6 +171,6 @@ public class Human {
     }
     @Override
     protected void finalize() {
-        System.out.println("Human удаляется: " + this);
+        System.out.println("people.Human удаляется: " + this);
     }
 }
