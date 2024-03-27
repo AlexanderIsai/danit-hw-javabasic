@@ -2,6 +2,7 @@ package pets;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * description
@@ -22,7 +23,7 @@ public abstract class Pet {
     private String nickname;
     private int age;
     private int trickLevel;
-    private String[] habits;
+    private Set<String> habits;
 
 
     public Pet() {
@@ -32,7 +33,7 @@ public abstract class Pet {
         this.nickname = nickname;
     }
 
-    public Pet(String nickname, int age, int trickLevel, String[] habits) {
+    public Pet(String nickname, int age, int trickLevel, Set<String> habits) {
         this.nickname = nickname;
         this.age = age;
         this.trickLevel = trickLevel;
@@ -44,7 +45,7 @@ public abstract class Pet {
     }
 
     public void setSpecies(Species species) {
-        this.species = species;
+        this.species = species == null ? Species.UNKNOWN : species;
     }
 
     public String getNickname() {
@@ -52,7 +53,7 @@ public abstract class Pet {
     }
 
     public void setNickname(String nickname) {
-        this.species = species == null ? Species.UNKNOWN : species;
+        this.nickname = nickname;
     }
 
     public int getAge() {
@@ -71,11 +72,11 @@ public abstract class Pet {
         this.trickLevel = trickLevel;
     }
 
-    public String[] getHabits() {
+    public Set<String> getHabits() {
         return habits;
     }
 
-    public void setHabits(String[] habits) {
+    public void setHabits(Set<String> habits) {
         this.habits = habits;
     }
 
@@ -91,7 +92,7 @@ public abstract class Pet {
         return species + "{nickname='" + nickname +
                 ", age=" + age +
                 ", trickLevel=" + trickLevel +
-                ", habits=" + Arrays.toString(habits) +
+                ", habits=" + habits.toString() +
                 ", canFly=" + species.canFly() +
                 ", numberOfLegs=" + species.getNumberOfLegs() +
                 ", hasFur=" + species.hasFur() + '}';
@@ -108,7 +109,7 @@ public abstract class Pet {
     @Override
     public int hashCode() {
         int result = Objects.hash(species, nickname, age, trickLevel);
-        result = 31 * result + Arrays.hashCode(habits);
+        result = 31 * result + habits.hashCode();
         return result;
     }
     @Override

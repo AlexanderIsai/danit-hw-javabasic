@@ -1,5 +1,7 @@
 package pets;
 
+import java.util.Set;
+
 /**
  * description
  *
@@ -7,7 +9,7 @@ package pets;
  */
 public class RoboCat extends Pet{
 
-    public RoboCat(String nickname, int age, int trickLevel, String[] habits) {
+    public RoboCat(String nickname, int age, int trickLevel, Set<String> habits) {
         super(nickname, age, trickLevel, habits);
         this.species = Species.ROBOCAT;
     }

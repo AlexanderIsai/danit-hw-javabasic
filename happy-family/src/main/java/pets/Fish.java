@@ -2,6 +2,8 @@ package pets;
 
 import jdk.jshell.DeclarationSnippet;
 
+import java.util.Set;
+
 /**
  * description
  *
@@ -9,7 +11,7 @@ import jdk.jshell.DeclarationSnippet;
  */
 public class Fish extends Pet {
 
-    public Fish(String nickname, int age, int trickLevel, String[] habits) {
+    public Fish(String nickname, int age, int trickLevel, Set<String> habits) {
         super(nickname, age, trickLevel, habits);
         this.species = Species.FISH;
     }

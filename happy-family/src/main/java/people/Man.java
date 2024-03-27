@@ -1,5 +1,10 @@
 package people;
 
+import pets.Dog;
+import pets.Pet;
+
+import java.util.Map;
+
 /**
  * description
  *
@@ -19,13 +24,15 @@ public final class Man extends Human{
         super(name, surname, year, family);
     }
 
-    public Man(String name, String surname, int year, int iq, Family family, String[][] schedule) {
-        super(name, surname, year, iq, family, schedule);
+    public Man(String name, String surname, int year, int iq, Family family) {
+        super(name, surname, year, iq, family);
     }
 
     @Override
     public void greetPet() {
-        System.out.printf("Привіт, мій домашній друже, %s\n", getFamily().getPet().getNickname());
+        for (Pet petty : getFamily().getPet()) {
+            System.out.printf("Привіт, мій домашній друже, %s\n", petty.getNickname());
+        }
     }
 
     public void repairCar() {

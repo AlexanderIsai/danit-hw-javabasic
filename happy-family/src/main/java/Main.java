@@ -6,6 +6,7 @@ import pets.Pet;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class Main {
     public static void main(String[] args) throws IllegalAccessException {
@@ -23,7 +24,7 @@ public class Main {
         father.setSchedule(child1.initSchedule());
         mother.setIq(140);
         father.setIq(160);
-        DomesticCat pet1 = new DomesticCat("Kitty", 5, 10, new String[]{"eat", "sleep", "play"});
+        DomesticCat pet1 = new DomesticCat("Kitty", 5, 10, new HashSet<>(Arrays.asList("eat", "sleep", "play")));
 
 
         Family family1 = new Family(mother, father);
@@ -33,29 +34,31 @@ public class Main {
         family1.setPet(pet1);
         System.out.println(family1);
         pet1.foul();
-        family1.getPet().eat();
-        family1.getPet().respond();
-        child1.describePet();
         child1.describePet();
 
-
-       System.out.println(child1.feedPet(true));
+       System.out.println(child1.feedPet(false));
         System.out.println(family1.countFamily());
 
 
 
         printFields(family1);
-        System.out.println(family1.deleteChild(0));
-        System.out.println(family1.countFamily());
-        System.out.println(family1.deleteChild(child3));
-        System.out.println(Arrays.toString(family1.getChildren()));
-        System.out.println(family1.countFamily());
-        Fish fish = new Fish("Fishy", 3, 10, new String[]{"eat", "walk", "bark"});
+//        System.out.println(family1.deleteChild(0));
+//        System.out.println(family1.countFamily());
+//        System.out.println(family1.deleteChild(child3));
+//        System.out.println(family1.getChildren());
+//        System.out.println(family1.countFamily());
+        System.out.println(family1.getPet());
+        Fish fish = new Fish("Fishy", 3, 10, new HashSet<>(Arrays.asList("eat", "walk", "bark")));
         System.out.println(fish.getNickname());
+        family1.setPet(fish);
+        family1.setPet(pet1);
+        family1.setPet(fish);
+        System.out.println(family1.getPet().size());
         fish.respond();
         family1.bornChild();
-        System.out.println(family1.getChildren()[1].getFamily());
+        //System.out.println(family1.getChildren()[1].getFamily());
         System.out.println(family1.countFamily());
+        System.out.println(family1.getChildren().get(1));
 
 //        for (int i = 0; i < 1000000; i++) {
 //            people.Human humanTest = new people.Human("Test", "Testovich" + i, 2000);
@@ -70,11 +73,7 @@ public class Main {
         System.out.println(clazz.getName() + " fields:");
         for (Field field : fields) {
             field.setAccessible(true);
-            if (!field.getName().equals("children")) {
-                System.out.println(field.getName() + ": " + field.get(obj));
-            } else {
-                System.out.println(field.getName() + ": " + Arrays.deepToString((Object[]) field.get(obj)));
-            }
+            System.out.println(field.getName() + ": " + field.get(obj));
         }
     }
 

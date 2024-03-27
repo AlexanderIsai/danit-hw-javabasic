@@ -1,5 +1,7 @@
 package people;
 
+import pets.Pet;
+
 /**
  * description
  *
@@ -19,13 +21,15 @@ public final class Woman extends Human{
         super(name, surname, year, family);
     }
 
-    public Woman(String name, String surname, int year, int iq, Family family, String[][] schedule) {
-        super(name, surname, year, iq, family, schedule);
+    public Woman(String name, String surname, int year, int iq, Family family) {
+        super(name, surname, year, iq, family);
     }
 
     @Override
     public void greetPet() {
-        System.out.printf("Привіт, моя улюбленниця %s\n", getFamily().getPet().getNickname());
+        for (Pet petty : getFamily().getPet()) {
+            System.out.printf("Привіт, моя улюбленниця %s\n", petty.getNickname());
+        }
     }
 
     public void makeup () {

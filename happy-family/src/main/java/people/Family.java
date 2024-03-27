@@ -3,9 +3,7 @@ package people;
 import people.Human;
 import pets.Pet;
 
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 /**
  * description
@@ -24,13 +22,13 @@ public class Family implements HumanCreator{
 
     private Human mother;
     private Human father;
-    private Human[] children;
-    private Pet pet;
+    private List<Human> children;
+    private Set<Pet> pet;
 
     public Family(Human mother, Human father) {
         this.mother = mother;
         this.father = father;
-        this.children = new Human[0];
+        this.children = new ArrayList<>();
         this.mother.setFamily(this);
         this.father.setFamily(this);
     }
@@ -51,66 +49,52 @@ public class Family implements HumanCreator{
         this.father = father;
     }
 
-    public Human[] getChildren() {
+    public List<Human> getChildren() {
         return children;
     }
 
-    public void setChildren(Human[] children) {
+    public void setChildren(List<Human> children) {
         this.children = children;
     }
 
-    public Pet getPet() {
+    public Set<Pet> getPet() {
         return pet;
     }
 
     public void setPet(Pet pet) {
-        this.pet = pet;
+        if (this.pet == null) {
+            this.pet = new HashSet<>();
+        }
+        this.pet.add(pet);
     }
 
     public void addChild(Human child){
-        children = Arrays.copyOf(children, children.length + 1);
-        children[children.length - 1] = child;
+        children.add(child);
         child.setFamily(this);
     }
 
     public boolean deleteChild(int index){
-        if (index < 0 || index >= children.length){
+        if (index < 0 || index >= children.size()){
             return false;
         }
-        Human[] newChildren = new Human[children.length - 1];
-        int j = 0;
+        Human child = children.get(index);
+        child.setFamily(null);
+        children.remove(index);
 
-        for (int i = 0; i < children.length; i++) {
-            if (i == index){
-                children[i].setFamily(null);
-            }
-            else {
-                newChildren[j] = children[i];
-                j++;
-            }
-        }
-        children = newChildren;
         return true;
     }
 
     public boolean deleteChild(Human child){
-        boolean isChildDelete = false;
-        if (children.length < 1){
-            return false;
+        boolean result = children.remove(child);
+        if (result) {
+            child.setFamily(null);
         }
-        for (int i = 0; i < children.length; i++) {
-            //if (human.hashCode() == child.hashCode()) {
-            if (children[i].equals(child)) {
-                deleteChild(i);
-                isChildDelete = true;
-            }
-        }
-        return isChildDelete;
+        return result;
     }
 
 
     public int countFamily(){
-        return children.length + 2;
+        return children.size() + 2;
     }
 
     @Override
@@ -118,7 +102,7 @@ public class Family implements HumanCreator{
         return "Family{" +
                 "mother=" + mother +
                 ", father=" + father +
-                ", children=" + Arrays.toString(children) +
+                ", children=" + children.toString() +
                 ", pet=" + pet +
                 '}';
     }
@@ -128,12 +112,12 @@ public class Family implements HumanCreator{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Family family = (Family) o;
-        return Objects.equals(mother, family.mother) && Objects.equals(father, family.father) && Arrays.equals(children, family.children) && Objects.equals(pet, family.pet);
+        return Objects.equals(mother, family.mother) && Objects.equals(father, family.father) && children.equals(family.children) && Objects.equals(pet, family.pet);
     }
     @Override
     public int hashCode() {
         int result = Objects.hash(mother, father, pet);
-        result = 31 * result + Arrays.hashCode(children);
+        result = 31 * result + children.hashCode();
         return result;
     }
     @Override
