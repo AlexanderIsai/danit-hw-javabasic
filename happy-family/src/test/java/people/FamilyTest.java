@@ -75,13 +75,13 @@ class FamilyTest {
     @Test
     void testToString() {
         Pet pet = new Dog("Rex", 5, 75, new HashSet<>(Arrays.asList("eat", "play")));
-        family.setPet(pet);
+        family.setPets(pet);
         System.out.println(family);
         String expected = "Family{mother=Human{name='Mutter', surname='Schmidt', year=1965, iq=0, schedule={}}, " +
                 "father=Human{name='Vater', surname='Schmidt', year=1960, iq=0, schedule={}}, " +
                 "children=[Human{name='Junge', surname='Schmidt', year=1990, iq=0, schedule={}}, " +
                 "Human{name='Madchen', surname='Schmidt', year=1992, iq=0, schedule={}}], " +
-                "pet=[DOG{nickname='Rex, age=5, trickLevel=75, habits=[play, eat], canFly=false, numberOfLegs=4, hasFur=true}]}";
+                "pets=[DOG{nickname='Rex, age=5, trickLevel=75, habits=[play, eat], canFly=false, numberOfLegs=4, hasFur=true}]}";
         assertEquals(expected, family.toString());
     }
 

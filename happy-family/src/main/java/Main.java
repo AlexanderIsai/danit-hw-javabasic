@@ -2,7 +2,6 @@ import people.Family;
 import people.Human;
 import pets.DomesticCat;
 import pets.Fish;
-import pets.Pet;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -31,7 +30,7 @@ public class Main {
         family1.addChild(child1);
         family1.addChild(child2);
         family1.addChild(child3);
-        family1.setPet(pet1);
+        family1.setPets(pet1);
         System.out.println(family1);
         pet1.foul();
         child1.describePet();
@@ -42,23 +41,18 @@ public class Main {
 
 
         printFields(family1);
-//        System.out.println(family1.deleteChild(0));
-//        System.out.println(family1.countFamily());
-//        System.out.println(family1.deleteChild(child3));
-//        System.out.println(family1.getChildren());
-//        System.out.println(family1.countFamily());
-        System.out.println(family1.getPet());
+        System.out.println(family1.getPets());
         Fish fish = new Fish("Fishy", 3, 10, new HashSet<>(Arrays.asList("eat", "walk", "bark")));
         System.out.println(fish.getNickname());
-        family1.setPet(fish);
-        family1.setPet(pet1);
-        family1.setPet(fish);
-        System.out.println(family1.getPet().size());
+        family1.setPets(fish);
+        family1.setPets(pet1);
+        family1.setPets(fish);
+        System.out.println(family1.getPets().size());
         fish.respond();
         family1.bornChild();
-        //System.out.println(family1.getChildren()[1].getFamily());
         System.out.println(family1.countFamily());
         System.out.println(family1.getChildren().get(1));
+        System.out.println(family1);
 
 //        for (int i = 0; i < 1000000; i++) {
 //            people.Human humanTest = new people.Human("Test", "Testovich" + i, 2000);

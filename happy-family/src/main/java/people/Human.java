@@ -11,11 +11,11 @@ import java.util.*;
  */
 public class Human {
     static {
-        System.out.println("Загрузился новый класс people.Human");
+        System.out.println("Загрузился новый класс Human");
     }
 
     {
-        System.out.println("Новый people.Human создан");
+        System.out.println("Новый Human создан");
     }
 
     private String name;
@@ -24,6 +24,7 @@ public class Human {
     private int iq;
     private Map<DayOfWeek, String> schedule;
     private Family family;
+
 
     public Human() {
     }
@@ -100,8 +101,8 @@ public class Human {
     }
 
     public void greetPet(){
-        if (family != null && family.getPet() != null) {
-            for (Pet petty : family.getPet()) {
+        if (family != null && family.getPets() != null) {
+            for (Pet petty : family.getPets()) {
                 System.out.printf("Привіт, %s\n", petty.getNickname());
             }
 
@@ -109,8 +110,8 @@ public class Human {
     }
 
     public void describePet(){
-        if (family != null && family.getPet() != null) {
-            for (Pet petty : family.getPet()) {
+        if (family != null && family.getPets() != null) {
+            for (Pet petty : family.getPets()) {
                 String trick = petty.getTrickLevel() > 50 ? "дуже хитрий" : "майже не хитрий";
                 System.out.printf("У мене є %s, їй %d років, він %s\n", petty.getSpecies(), petty.getAge(), trick);
             }
@@ -120,7 +121,7 @@ public class Human {
     public boolean feedPet(boolean isTime){
         Random random = new Random();
         boolean isFed = false;
-        for (Pet petty : family.getPet()) {
+        for (Pet petty : family.getPets()) {
             String petName = petty.getNickname();
             if (isTime || petty.getTrickLevel() > random.nextInt(101)) {
                 System.out.printf("Хм... годувати я %s\n", petName);
@@ -172,6 +173,6 @@ public class Human {
     }
     @Override
     protected void finalize() {
-        System.out.println("people.Human удаляется: " + this);
+        System.out.println("Human удаляется: " + this);
     }
 }

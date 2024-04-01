@@ -1,9 +1,6 @@
 package people;
 
-import pets.Dog;
 import pets.Pet;
-
-import java.util.Map;
 
 /**
  * description
@@ -30,7 +27,7 @@ public final class Man extends Human{
 
     @Override
     public void greetPet() {
-        for (Pet petty : getFamily().getPet()) {
+        for (Pet petty : getFamily().getPets()) {
             System.out.printf("Привіт, мій домашній друже, %s\n", petty.getNickname());
         }
     }

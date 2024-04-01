@@ -1,8 +1,8 @@
 package people;
 
-import people.Human;
 import pets.Pet;
 
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -13,22 +13,23 @@ import java.util.*;
 public class Family implements HumanCreator{
 
     static {
-        System.out.println("Загрузился новый класс people.Family");
+        System.out.println("Загрузился новый класс Family");
     }
 
     {
-        System.out.println("Новая people.Family создана");
+        System.out.println("Новая Family создана");
     }
 
     private Human mother;
     private Human father;
     private List<Human> children;
-    private Set<Pet> pet;
+    private Set<Pet> pets;
 
     public Family(Human mother, Human father) {
         this.mother = mother;
         this.father = father;
         this.children = new ArrayList<>();
+        this.pets = new HashSet<>();
         this.mother.setFamily(this);
         this.father.setFamily(this);
     }
@@ -57,15 +58,15 @@ public class Family implements HumanCreator{
         this.children = children;
     }
 
-    public Set<Pet> getPet() {
-        return pet;
+    public Set<Pet> getPets() {
+        return pets;
     }
 
-    public void setPet(Pet pet) {
-        if (this.pet == null) {
-            this.pet = new HashSet<>();
+    public void setPets(Pet pet) {
+        if (this.pets == null) {
+            this.pets = new HashSet<>();
         }
-        this.pet.add(pet);
+        this.pets.add(pet);
     }
 
     public void addChild(Human child){
@@ -103,7 +104,7 @@ public class Family implements HumanCreator{
                 "mother=" + mother +
                 ", father=" + father +
                 ", children=" + children.toString() +
-                ", pet=" + pet +
+                ", pets=" + pets +
                 '}';
     }
 
@@ -112,25 +113,27 @@ public class Family implements HumanCreator{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Family family = (Family) o;
-        return Objects.equals(mother, family.mother) && Objects.equals(father, family.father) && children.equals(family.children) && Objects.equals(pet, family.pet);
+        return Objects.equals(mother, family.mother) && Objects.equals(father, family.father) && children.equals(family.children) && Objects.equals(pets, family.pets);
     }
     @Override
     public int hashCode() {
-        int result = Objects.hash(mother, father, pet);
+        int result = Objects.hash(mother, father, pets);
         result = 31 * result + children.hashCode();
         return result;
     }
     @Override
     protected void finalize() {
-        System.out.println("people.Family удаляется: " + this);
+        System.out.println("Family удаляется: " + this);
     }
 
     @Override
     public Human bornChild() {
         Random random = new Random();
+        LocalDate localDate = LocalDate.now();
+        int year = localDate.getYear();
         String[] boysNames = new String[]{"Ivan", "Petr", "Pablo", "Alex", "Olaf"};
         String[] girlsNames = new String[]{"Maria", "Anna", "Helen", "Olga", "Kate"};
-        Human child = random.nextBoolean() ? new Man(boysNames[random.nextInt(boysNames.length)], father.getSurname(), 2024) : new Woman(girlsNames[random.nextInt(girlsNames.length)], father.getSurname(), 2024);
+        Human child = random.nextBoolean() ? new Man(boysNames[random.nextInt(boysNames.length)], father.getSurname(), year) : new Woman(girlsNames[random.nextInt(girlsNames.length)], father.getSurname(), 2024);
         child.setIq((father.getIq() + mother.getIq()) / 2);
         this.addChild(child);
         child.setFamily(this);

@@ -12,11 +12,11 @@ import java.util.Set;
 public abstract class Pet {
 
     static {
-        System.out.println("Загрузился новый класс pets.Pet");
+        System.out.println("Загрузился новый класс Pet");
     }
 
     {
-        System.out.println("Новый pets.Pet создан");
+        System.out.println("Новый Pet создан");
     }
 
     protected Species species = Species.UNKNOWN;
@@ -114,7 +114,7 @@ public abstract class Pet {
     }
     @Override
     protected void finalize() {
-        System.out.println("pets.Pet удаляется: " + this);
+        System.out.println("Pet удаляется: " + this);
     }
 
 }
