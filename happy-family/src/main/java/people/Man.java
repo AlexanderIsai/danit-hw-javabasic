@@ -13,16 +13,20 @@ public final class Man extends Human{
         super();
     }
 
-    public Man(String name, String surname, int year) {
-        super(name, surname, year);
+    public Man(String name, String surname, long birthDay) {
+        super(name, surname, birthDay);
     }
 
-    public Man(String name, String surname, int year, Family family) {
-        super(name, surname, year, family);
+    public Man(String name, String surname, String birthDay, int iq) {
+        super(name, surname, birthDay, iq);
     }
 
-    public Man(String name, String surname, int year, int iq, Family family) {
-        super(name, surname, year, iq, family);
+    public Man(String name, String surname, long birthDay, Family family) {
+        super(name, surname, birthDay, family);
+    }
+
+    public Man(String name, String surname, long birthDay, int iq, Family family) {
+        super(name, surname, birthDay, iq, family);
     }
 
     @Override

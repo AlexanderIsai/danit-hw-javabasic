@@ -2,6 +2,11 @@ package people;
 
 import pets.Pet;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -20,7 +25,7 @@ public class Human {
 
     private String name;
     private String surname;
-    private int year;
+    private long birthDate;
     private int iq;
     private Map<DayOfWeek, String> schedule;
     private Family family;
@@ -29,27 +34,38 @@ public class Human {
     public Human() {
     }
 
-    public Human(String name, String surname, int year) {
+    public Human(String name, String surname, long birthDate) {
         this.name = name;
         this.surname = surname;
-        this.year = year;
+        this.birthDate = birthDate;
         this.schedule = new HashMap<>();
     }
 
-    public Human(String name, String surname, int year, Family family) {
+    public Human(String name, String surname, long birthDate, Family family) {
         this.name = name;
         this.surname = surname;
-        this.year = year;
+        this.birthDate = birthDate;
         this.family = family;
     }
 
-    public Human(String name, String surname, int year, int iq, Family family) {
+    public Human(String name, String surname, long birthDate, int iq, Family family) {
         this.name = name;
         this.surname = surname;
-        this.year = year;
+        this.birthDate = birthDate;
         this.iq = iq;
         this.family = family;
         this.schedule = initSchedule();
+    }
+
+    public Human(String name, String surname, String birthDate, int iq) {
+        this.name = name;
+        this.surname = surname;
+        this.iq = iq;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate birthDateLocal = LocalDate.parse(birthDate, formatter);
+        this.birthDate = birthDateLocal.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        this.schedule = new HashMap<>();
     }
 
     public String getName() {
@@ -68,12 +84,12 @@ public class Human {
         this.surname = surname;
     }
 
-    public int getYear() {
-        return year;
+    public long getBirthDate() {
+        return birthDate;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setBirthDate(long birthDate) {
+        this.birthDate = birthDate;
     }
 
     public int getIq() {
@@ -105,7 +121,6 @@ public class Human {
             for (Pet petty : family.getPets()) {
                 System.out.printf("Привіт, %s\n", petty.getNickname());
             }
-
         }
     }
 
@@ -145,13 +160,28 @@ public class Human {
         return schedule;
     }
 
+    public String describeAge(){
+        LocalDate birthDateLocal = LocalDate.ofInstant(java.time.Instant.ofEpochMilli(birthDate), ZoneId.systemDefault());
+        LocalDate currentDate = LocalDate.now();
+        Period period = Period.between(birthDateLocal, currentDate);
+        return String.format("%d years, %d months, and %d days", period.getYears(), period.getMonths(), period.getDays());
+    }
+
+    public int getYear(){
+        String date = this.describeAge();
+        return Integer.parseInt(date.split(" ")[0]);
+    }
+
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() +
-                "{name='" + name + '\'' +
+        LocalDate birthDateLocal = Instant.ofEpochMilli(birthDate).atZone(ZoneId.systemDefault()).toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String birthDateString = birthDateLocal.format(formatter);
+        return getClass().getSimpleName() + "{" +
+                "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", year=" + year +
+                ", birthDate=" + birthDateString +
                 ", iq=" + iq +
                 ", schedule=" + schedule.toString() +
                 '}';
@@ -162,12 +192,12 @@ public class Human {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Human human = (Human) o;
-        return year == human.year && iq == human.iq && Objects.equals(name, human.name) && Objects.equals(surname, human.surname);
+        return birthDate == human.birthDate && iq == human.iq && Objects.equals(name, human.name) && Objects.equals(surname, human.surname);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(name, surname, year, iq);
+        int result = Objects.hash(name, surname, birthDate, iq);
         result = 31 * result + schedule.hashCode();
         return result;
     }

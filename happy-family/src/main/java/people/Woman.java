@@ -13,16 +13,19 @@ public final class Woman extends Human{
         super();
     }
 
-    public Woman(String name, String surname, int year) {
-        super(name, surname, year);
+    public Woman(String name, String surname, long birthDay) {
+        super(name, surname, birthDay);
+    }
+    public Woman(String name, String surname, String birthDay, int iq) {
+        super(name, surname, birthDay, iq);
     }
 
-    public Woman(String name, String surname, int year, Family family) {
-        super(name, surname, year, family);
+    public Woman(String name, String surname, long birthDay, Family family) {
+        super(name, surname, birthDay, family);
     }
 
-    public Woman(String name, String surname, int year, int iq, Family family) {
-        super(name, surname, year, iq, family);
+    public Woman(String name, String surname, long birthDay, int iq, Family family) {
+        super(name, surname, birthDay, iq, family);
     }
 
     @Override

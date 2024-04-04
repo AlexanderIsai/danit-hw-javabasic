@@ -82,12 +82,10 @@ public class FamilyService {
     }
 
     public void deleteAllChildrenOlderThen(int age) {
-        LocalDate localDate = LocalDate.now();
-        int year = localDate.getYear();
         getAllFamilies().forEach(family -> {
             if (family != null && family.countFamily() > 2) {
                 List<Human> toDelete = family.getChildren().stream()
-                        .filter(child -> (year - child.getYear()) > age)
+                        .filter(child -> child.getYear() > age)
                         .toList();
                 toDelete.forEach(child -> {
                     family.deleteChild(child);
