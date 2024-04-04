@@ -3,6 +3,7 @@ package people;
 import pets.Pet;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -130,11 +131,12 @@ public class Family implements HumanCreator{
     public Human bornChild() {
         Random random = new Random();
         LocalDate localDate = LocalDate.now();
-        int year = localDate.getYear();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = localDate.format(formatter);
         String[] boysNames = new String[]{"Ivan", "Petr", "Pablo", "Alex", "Olaf"};
         String[] girlsNames = new String[]{"Maria", "Anna", "Helen", "Olga", "Kate"};
-        Human child = random.nextBoolean() ? new Man(boysNames[random.nextInt(boysNames.length)], father.getSurname(), year) : new Woman(girlsNames[random.nextInt(girlsNames.length)], father.getSurname(), 2024);
-        child.setIq((father.getIq() + mother.getIq()) / 2);
+        int iq = (father.getIq() + mother.getIq()) / 2;
+        Human child = random.nextBoolean() ? new Man(boysNames[random.nextInt(boysNames.length)], father.getSurname(), formattedDate, iq) : new Woman(girlsNames[random.nextInt(girlsNames.length)], father.getSurname(), formattedDate, iq);
         this.addChild(child);
         child.setFamily(this);
         return child;

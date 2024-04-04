@@ -18,11 +18,11 @@ public class MainWithController {
 
     public static void main(String[] args) {
 
-        Human mother5 = new Human("Mama5", "Mamova5", 2000);
-        Human father5 = new Human("Father5", "Fatherov5", 1995);
+        Human mother5 = new Human("Mama5", "Mamova5", "01/05/2000", 120);
+        Human father5 = new Human("Father5", "Fatherov5", "10/12/1995", 160);
         mother5.setIq(100);
         father5.setIq(140);
-        Human child5 = new Human("Katya", "Katyeva", 2015);
+        Human child5 = new Human("Katya", "Katyeva", "01/09/2015", 150);
         RoboCat pet4 = new RoboCat("Robby", 1, 5, new HashSet<>(Arrays.asList("charge", "play", "talk")));
 
 

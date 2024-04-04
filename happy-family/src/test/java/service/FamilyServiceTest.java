@@ -26,9 +26,9 @@ class FamilyServiceTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        Family family1 = new Family(new Human("Mama1", "Mamova1", 1980), new Human("Papa1", "Papov1", 1979));
-        Family family2 = new Family(new Human("Mama2", "Mamova2", 1985), new Human("Papa2", "Papov2", 1984));
-        Human child5 = new Human("Katya", "Katyeva", 2015);
+        Family family1 = new Family(new Human("Mama1", "Mamova1", "01/05/1980", 100), new Human("Papa1", "Papov1", "01/02/1979", 120));
+        Family family2 = new Family(new Human("Mama2", "Mamova2", "02/05/1985", 110), new Human("Papa2", "Papov2", "02/02/1984", 130));
+        Human child5 = new Human("Katya", "Katyeva", "01/03/2015", 110);
         family1.addChild(child5);
 
         familyList.add(family1);
@@ -69,8 +69,8 @@ class FamilyServiceTest {
 
     @Test
     void createNewFamily() {
-        Human mother1 = new Human("Mutter1", "Mutterova", 1990);
-        Human father1 = new Human("Vater1", "Vaterov", 1993);
+        Human mother1 = new Human("Mutter1", "Mutterova", "03/05/1992", 120);
+        Human father1 = new Human("Vater1", "Vaterov", "03/02/1993", 160);
         familyService.createNewFamily(mother1, father1);
         verify(familyDAO, times(1)).saveFamily(any(Family.class));
     }
@@ -85,8 +85,8 @@ class FamilyServiceTest {
     @Test
     void bornChild() {
         Family family = mock(Family.class);
-        when(family.bornChild()).thenReturn(new Man("Name", "Surname", 2024));
-        when(family.getChildren()).thenReturn(List.of(new Human("Boy", "Surname", 2024)));
+        when(family.bornChild()).thenReturn(new Man("Name", "Surname", "02/04/2024", 120));
+        when(family.getChildren()).thenReturn(List.of(new Human("Boy", "Surname", "02/04/2024", 120)));
         String boysName = "Boy";
         String girlsName = "Girl";
         familyService.bornChild(family, boysName, girlsName);
@@ -106,10 +106,10 @@ class FamilyServiceTest {
     }
     @Test
     void deleteAllChildrenOlderThen() {
-        Family family = new Family(new Human("Mom", "MomSurname", 1970),
-                new Human("Dad", "DadSurname", 1965));
-        Human childOlder = new Human("Old", "Surname", 2000);
-        Human childYounger = new Human("Young", "Surname", 2010);
+        Family family = new Family(new Human("Mom", "MomSurname", "05/05/1970", 120),
+                new Human("Dad", "DadSurname", "05/02/1965", 150));
+        Human childOlder = new Human("Old", "Surname", "02/09/2004", 135);
+        Human childYounger = new Human("Young", "Surname", "03/09/2015", 135);
         family.addChild(childOlder);
         family.addChild(childYounger);
         when(familyDAO.getAllFamilies()).thenReturn(List.of(family));
@@ -140,7 +140,7 @@ class FamilyServiceTest {
     @Test
     void getPets() {
         int familyIndex = 0;
-        Family family = new Family(new Human("Mother", "Surname", 1970), new Human("Father", "Surname", 1965));
+        Family family = new Family(new Human("Mother", "Surname", "06/05/1970", 120), new Human("Father", "Surname", "06/02/1965", 140));
         family.setPets(new RoboCat("Robby", 1, 5, new HashSet<>(Arrays.asList("charge", "play", "talk"))));
         family.setPets(new Dog("Doggy", 10, 55, new HashSet<>(Arrays.asList("bark", "play", "walk"))));
         Set<Pet> expectedPets = family.getPets();
