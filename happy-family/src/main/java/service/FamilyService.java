@@ -26,10 +26,7 @@ public class FamilyService {
     }
 
     public void displayAllFamilies() {
-        List<Family> families = getAllFamilies();
-        for (Family family : families) {
-            System.out.println(family);
-        }
+        getAllFamilies().forEach(System.out::println);
     }
 
     public List<Family> getFamiliesBiggerThan(int quantity) {
