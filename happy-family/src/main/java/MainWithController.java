@@ -1,5 +1,6 @@
 import controller.FamilyController;
 import people.Human;
+import people.Woman;
 import pets.RoboCat;
 import service.CollectionFamilyDao;
 import service.FamilyDAO;
@@ -20,7 +21,7 @@ public class MainWithController {
         Human father5 = new Human("Father5", "Fatherov5", "10/12/1995", 160);
         mother5.setIq(100);
         father5.setIq(140);
-        Human child5 = new Human("Katya", "Katyeva", "01/09/2015", 150);
+        Human child5 = new Woman("Katya", "Katyeva", "01/09/2015", 150);
         RoboCat pet4 = new RoboCat("Robby", 1, 5, new HashSet<>(Arrays.asList("charge", "play", "talk")));
 
 

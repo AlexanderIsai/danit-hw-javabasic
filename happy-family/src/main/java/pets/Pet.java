@@ -1,5 +1,7 @@
 package pets;
 
+import service.PrettyFormat;
+
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
@@ -9,7 +11,7 @@ import java.util.Set;
  *
  * @author Alexander Isai on 19.03.2024.
  */
-public abstract class Pet {
+public abstract class Pet implements PrettyFormat {
 
     static {
         System.out.println("Загрузился новый класс Pet");
@@ -89,13 +91,16 @@ public abstract class Pet {
 
     @Override
     public String toString() {
-        return species + "{nickname='" + nickname +
+        return prettyFormat();
+    }
+
+    @Override
+    public String prettyFormat(){
+        return "{species=" + species +
+                ", nickname='" + nickname +
                 ", age=" + age +
                 ", trickLevel=" + trickLevel +
-                ", habits=" + habits.toString() +
-                ", canFly=" + species.canFly() +
-                ", numberOfLegs=" + species.getNumberOfLegs() +
-                ", hasFur=" + species.hasFur() + '}';
+                ", habits=" + habits.toString() + "}";
     }
 
     @Override
