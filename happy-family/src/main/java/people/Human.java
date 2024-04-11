@@ -1,6 +1,7 @@
 package people;
 
 import pets.Pet;
+import service.PrettyFormat;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ import java.util.*;
  *
  * @author Alexander Isai on 19.03.2024.
  */
-public class Human {
+public class Human implements PrettyFormat {
     static {
         System.out.println("Загрузился новый класс Human");
     }
@@ -161,7 +162,7 @@ public class Human {
     }
 
     public String describeAge(){
-        LocalDate birthDateLocal = LocalDate.ofInstant(java.time.Instant.ofEpochMilli(birthDate), ZoneId.systemDefault());
+        LocalDate birthDateLocal = LocalDate.ofInstant(Instant.ofEpochMilli(birthDate), ZoneId.systemDefault());
         LocalDate currentDate = LocalDate.now();
         Period period = Period.between(birthDateLocal, currentDate);
         return String.format("%d years, %d months, and %d days", period.getYears(), period.getMonths(), period.getDays());
@@ -175,16 +176,7 @@ public class Human {
 
     @Override
     public String toString() {
-        LocalDate birthDateLocal = Instant.ofEpochMilli(birthDate).atZone(ZoneId.systemDefault()).toLocalDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String birthDateString = birthDateLocal.format(formatter);
-        return getClass().getSimpleName() + "{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", birthDate=" + birthDateString +
-                ", iq=" + iq +
-                ", schedule=" + schedule.toString() +
-                '}';
+        return prettyFormat();
     }
 
     @Override
@@ -204,5 +196,28 @@ public class Human {
     @Override
     protected void finalize() {
         System.out.println("Human удаляется: " + this);
+    }
+
+    @Override
+    public String prettyFormat() {
+        LocalDate birthDateLocal = Instant.ofEpochMilli(birthDate).atZone(ZoneId.systemDefault()).toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String birthDateString = birthDateLocal.format(formatter);
+        String humanType = getHumanType();
+        return          humanType +
+                        "{name='" + name + '\'' +
+                        ", surname='" + surname + '\'' +
+                        ", birthDate=" + birthDateString +
+                        ", iq=" + iq +
+                        ", schedule=" + schedule.toString() +
+                        '}';
+    }
+
+    private String getHumanType(){
+        return switch (this.getClass().getSimpleName()) {
+            case "Man" -> "boy: ";
+            case "Woman" -> "girl: ";
+            default -> "";
+        };
     }
 }

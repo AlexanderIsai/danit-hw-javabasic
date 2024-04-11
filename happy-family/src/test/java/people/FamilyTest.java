@@ -20,8 +20,8 @@ class FamilyTest {
     void setUp() {
         Human mother = new Human("Mutter", "Schmidt", "31/08/1970", 130);
         Human father = new Human("Vater", "Schmidt", "05/06/1965", 160);
-        child1 = new Human("Junge", "Schmidt", "01/09/2000", 145);
-        child2 = new Human("Madchen", "Schmidt", "22/04/2002", 145);
+        child1 = new Man("Junge", "Schmidt", "01/09/2000", 145);
+        child2 = new Woman("Madchen", "Schmidt", "22/04/2002", 145);
         family = new Family(mother, father);
         family.addChild(child1);
         family.addChild(child2);
@@ -77,11 +77,14 @@ class FamilyTest {
         Pet pet = new Dog("Rex", 5, 75, new HashSet<>(Arrays.asList("eat", "play")));
         family.setPets(pet);
         System.out.println(family);
-        String expected = "Family{mother=Human{name='Mutter', surname='Schmidt', birthDate=31/08/1970, iq=130, schedule={}}, " +
-                "father=Human{name='Vater', surname='Schmidt', birthDate=05/06/1965, iq=160, schedule={}}, " +
-                "children=[Human{name='Junge', surname='Schmidt', birthDate=01/09/2000, iq=145, schedule={}}, " +
-                "Human{name='Madchen', surname='Schmidt', birthDate=22/04/2002, iq=145, schedule={}}], " +
-                "pets=[DOG{nickname='Rex, age=5, trickLevel=75, habits=[play, eat], canFly=false, numberOfLegs=4, hasFur=true}]}";
+        String expected = """
+                family:
+                   mother: {name='Mutter', surname='Schmidt', birthDate=31/08/1970, iq=130, schedule={}},
+                   father: {name='Vater', surname='Schmidt', birthDate=05/06/1965, iq=160, schedule={}},
+                children: 
+                   boy: {name='Junge', surname='Schmidt', birthDate=01/09/2000, iq=145, schedule={}},
+                   girl: {name='Madchen', surname='Schmidt', birthDate=22/04/2002, iq=145, schedule={}}
+                pets: [{species=DOG, nickname='Rex, age=5, trickLevel=75, habits=[play, eat]}]}""";
         assertEquals(expected, family.toString());
     }
 

@@ -26,7 +26,8 @@ public class FamilyService {
     }
 
     public void displayAllFamilies() {
-        getAllFamilies().forEach(System.out::println);
+
+        getAllFamilies().forEach(family -> System.out.println((getAllFamilies().indexOf(family) + 1) + ". " + family));
     }
 
     public List<Family> getFamiliesBiggerThan(int quantity) {
@@ -53,6 +54,7 @@ public class FamilyService {
     }
 
     public void createNewFamily(Human mother, Human father) {
+        mother.setSurname(father.getSurname());
         Family newFamily = new Family(mother, father);
         familyDAO.saveFamily(newFamily);
     }
@@ -110,4 +112,5 @@ public class FamilyService {
         family.setPets(pet);
         familyDAO.saveFamily(family);
     }
+
 }

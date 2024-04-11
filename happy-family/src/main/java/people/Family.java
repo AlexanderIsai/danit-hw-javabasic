@@ -1,17 +1,19 @@
 package people;
 
 import pets.Pet;
+import service.PrettyFormat;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * description
  *
  * @author Alexander Isai on 20.03.2024.
  */
-public class Family implements HumanCreator{
+public class Family implements HumanCreator, PrettyFormat {
 
     static {
         System.out.println("Загрузился новый класс Family");
@@ -101,12 +103,7 @@ public class Family implements HumanCreator{
 
     @Override
     public String toString() {
-        return "Family{" +
-                "mother=" + mother +
-                ", father=" + father +
-                ", children=" + children.toString() +
-                ", pets=" + pets +
-                '}';
+        return prettyFormat();
     }
 
     @Override
@@ -140,5 +137,21 @@ public class Family implements HumanCreator{
         this.addChild(child);
         child.setFamily(this);
         return child;
+    }
+
+    @Override
+    public String prettyFormat() {
+        return "family:\n" +
+                "   mother: " + mother + ",\n" +
+                "   father: " + father + ",\n" +
+                "children:\n" + childrenPrettyFormat() + "\n" +
+                "pets: " + pets +
+                '}';
+    }
+
+    private String childrenPrettyFormat() {
+        return children.stream()
+                .map(child -> "   " + child.toString())
+                .collect(Collectors.joining(",\n"));
     }
 }
