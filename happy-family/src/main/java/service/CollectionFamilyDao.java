@@ -37,13 +37,13 @@ public class CollectionFamilyDao implements FamilyDAO{
         Man child2 = new Man("Petr", "Petrov", "03/11/2002", 160);
         Human child3 = new Man("Alex", "Alexov", "30/08/2010", 140);
         Woman child4 = new Woman("Lena", "Lenina", "08/08/2015", 110);
-        Human child5 = new Woman("Katya", "Katyeva", "08/12/2005", 110);
+        //Human child5 = new Woman("Katya", "Katyeva", "08/12/2005", 110);
 
         DomesticCat pet1 = new DomesticCat("Kitty", 5, 60, new HashSet<>(Arrays.asList("eat", "sleep", "play")));
         Dog pet2 = new Dog("Doggy", 10, 35, new HashSet<>(Arrays.asList("eat", "bark", "walk")));
         Pet pet3 = new Fish("Fishy", 2, 10, new HashSet<>(Arrays.asList("swim", "eat")));
-        //RoboCat pet4 = new RoboCat("Robby", 1, 5, new HashSet<>(Arrays.asList("charge", "play", "talk")));
-        //Pet pet5 = new Dog("Dogger", 3, 55, new HashSet<>(Arrays.asList("sleep", "play", "bark")));
+        RoboCat pet4 = new RoboCat("Robby", 1, 5, new HashSet<>(Arrays.asList("charge", "play", "talk")));
+        Pet pet5 = new Dog("Dogger", 3, 55, new HashSet<>(Arrays.asList("sleep", "play", "bark")));
 
         Family family1 = new Family(mother1, father1);
 
@@ -66,42 +66,58 @@ public class CollectionFamilyDao implements FamilyDAO{
         familyList.add(family4);
         this.families = familyList;
     }
-
-    public void setFamilies(List<Family> families) {
+    @Override
+    public void loadingFamilies(List<Family> families) {
         this.families = families;
+        Logger.info("Перелік родин успішно завантажений");
     }
 
     @Override
     public List<Family> getAllFamilies() {
+        Logger.info("Отримання переліку родин");
         return families;
     }
 
     @Override
     public Family getFamilyByIndex(int index) {
+        Family family = families.get(index);
+        if (family == null){
+            Logger.error("Родина не існує");
+        }
         return families.get(index);
     }
 
     @Override
     public boolean deleteFamily(int index) {
-        if (index >= 0 && index < families.size()) {
-            families.remove(index);
-            return true;
+        if (index < 0 || index >= families.size()) {
+            Logger.error("Родина з індексом " + (index + 1) + " не існує");
+            return false;
         }
-        return false;
+        families.remove(index);
+        Logger.info("Видалення родини за індексом: " + (index + 1));
+        return true;
     }
 
     @Override
     public boolean deleteFamily(Family family) {
+        if (family == null){
+            Logger.error("Родина не існує");
+        }
         return families.remove(family);
     }
 
     @Override
     public void saveFamily(Family family) {
+        if (family == null){
+            Logger.error("Родина не існує");
+        }
         int index = families.indexOf(family);
         if (index >= 0) {
             families.set(index, family);
+            Logger.info("Родина успішно змінена");
         } else {
             families.add(family);
+            Logger.info("Родина успішно збережена");
         }
     }
 

@@ -75,4 +75,6 @@ public class FamilyController {
     public void addPet (int index, Pet pet){
         familyService.addPet(index, pet);
     }
+
+    public void loadingFamilies(List<Family> families) {familyService.loadingFamily(families);}
 }

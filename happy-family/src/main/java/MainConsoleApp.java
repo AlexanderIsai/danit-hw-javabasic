@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class MainConsoleApp {
 
     static int start = 1;
-    static int end = 9;
+    static int end = 11;
 
     static String exit = "exit";
 

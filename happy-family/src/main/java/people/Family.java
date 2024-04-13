@@ -1,8 +1,10 @@
 package people;
 
+import com.fasterxml.jackson.annotation.*;
 import pets.Pet;
 import service.PrettyFormat;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -13,7 +15,7 @@ import java.util.stream.Collectors;
  *
  * @author Alexander Isai on 20.03.2024.
  */
-public class Family implements HumanCreator, PrettyFormat {
+public class Family implements HumanCreator, PrettyFormat, Serializable {
 
     static {
         System.out.println("Загрузился новый класс Family");
@@ -23,12 +25,17 @@ public class Family implements HumanCreator, PrettyFormat {
         System.out.println("Новая Family создана");
     }
 
+    @JsonManagedReference
     private Human mother;
+    @JsonManagedReference
     private Human father;
+    @JsonManagedReference
     private List<Human> children;
+    @JsonSetter(nulls = Nulls.AS_EMPTY)
     private Set<Pet> pets;
 
-    public Family(Human mother, Human father) {
+    @JsonCreator
+    public Family(@JsonProperty("mother") Human mother, @JsonProperty("father") Human father) {
         this.mother = mother;
         this.father = father;
         this.children = new ArrayList<>();
@@ -41,10 +48,11 @@ public class Family implements HumanCreator, PrettyFormat {
         return mother;
     }
 
+    @JsonProperty("mother")
     public void setMother(Human mother) {
         this.mother = mother;
     }
-
+    @JsonProperty("father")
     public Human getFather() {
         return father;
     }

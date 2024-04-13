@@ -17,4 +17,5 @@ public interface FamilyDAO {
     boolean deleteFamily(Family family);
     void saveFamily (Family family);
     void initFamilyList();
+    void loadingFamilies(List<Family> families);
 }
