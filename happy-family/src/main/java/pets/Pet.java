@@ -1,7 +1,10 @@
 package pets;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import service.PrettyFormat;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
@@ -11,7 +14,14 @@ import java.util.Set;
  *
  * @author Alexander Isai on 19.03.2024.
  */
-public abstract class Pet implements PrettyFormat {
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Dog.class, name = "DOG"),
+        @JsonSubTypes.Type(value = DomesticCat.class, name = "DOMESTICCAT"),
+        @JsonSubTypes.Type(value = Fish.class, name = "FISH"),
+        @JsonSubTypes.Type(value = RoboCat.class, name = "ROBOCAT")
+})
+public abstract class Pet implements PrettyFormat, Serializable {
 
     static {
         System.out.println("Загрузился новый класс Pet");

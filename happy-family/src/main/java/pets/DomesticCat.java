@@ -1,5 +1,7 @@
 package pets;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import java.util.Set;
 
 /**
@@ -7,6 +9,7 @@ import java.util.Set;
  *
  * @author Alexander Isai on 24.03.2024.
  */
+@JsonTypeName("DOMESTICCAT")
 public class DomesticCat extends Pet implements Foul{
 
     public DomesticCat(String nickname, int age, int trickLevel, Set<String> habits) {

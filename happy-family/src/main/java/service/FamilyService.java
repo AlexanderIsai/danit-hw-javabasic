@@ -113,4 +113,8 @@ public class FamilyService {
         familyDAO.saveFamily(family);
     }
 
+    public void loadingFamily(List<Family> families){
+        familyDAO.loadingFamilies(families);
+    }
+
 }

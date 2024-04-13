@@ -1,8 +1,11 @@
 package people;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pets.Pet;
 import service.PrettyFormat;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
@@ -15,7 +18,7 @@ import java.util.*;
  *
  * @author Alexander Isai on 19.03.2024.
  */
-public class Human implements PrettyFormat {
+public class Human implements PrettyFormat, Serializable {
     static {
         System.out.println("Загрузился новый класс Human");
     }
@@ -29,6 +32,7 @@ public class Human implements PrettyFormat {
     private long birthDate;
     private int iq;
     private Map<DayOfWeek, String> schedule;
+    @JsonBackReference
     private Family family;
 
 
@@ -167,7 +171,7 @@ public class Human implements PrettyFormat {
         Period period = Period.between(birthDateLocal, currentDate);
         return String.format("%d years, %d months, and %d days", period.getYears(), period.getMonths(), period.getDays());
     }
-
+    @JsonIgnore
     public int getYear(){
         String date = this.describeAge();
         return Integer.parseInt(date.split(" ")[0]);
@@ -204,12 +208,13 @@ public class Human implements PrettyFormat {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String birthDateString = birthDateLocal.format(formatter);
         String humanType = getHumanType();
+        String scheduleString = (schedule != null) ? schedule.toString() : "No schedule";
         return          humanType +
                         "{name='" + name + '\'' +
                         ", surname='" + surname + '\'' +
                         ", birthDate=" + birthDateString +
                         ", iq=" + iq +
-                        ", schedule=" + schedule.toString() +
+                        ", schedule=" + scheduleString +
                         '}';
     }
 

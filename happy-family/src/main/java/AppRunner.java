@@ -1,10 +1,7 @@
 import controller.FamilyController;
 import people.Family;
 import people.Human;
-import service.CollectionFamilyDao;
-import service.ConsoleMessage;
-import service.FamilyDAO;
-import service.FamilyService;
+import service.*;
 import validator.FamilyValidator;
 import validator.InputValidator;
 
@@ -24,6 +21,8 @@ public class AppRunner {
     private Scanner scanner = new Scanner(System.in);
     private InputValidator inputValidator;
     private FamilyValidator familyValidator;
+    private FamilyLoader familyLoader;
+    private FamilyLoader2 familyLoader2;
 
     public AppRunner() {
         this.familyDAO = new CollectionFamilyDao();
@@ -32,6 +31,8 @@ public class AppRunner {
         this.consoleMessage = new ConsoleMessage();
         this.inputValidator = new InputValidator();
         this.familyValidator = new FamilyValidator();
+        //this.familyLoader = new FamilyLoader();
+        this.familyLoader2 = new FamilyLoader2();
     }
 
     public void runMenu(String choice) {
@@ -49,7 +50,7 @@ public class AppRunner {
             case "3": {
                 if (inputValidator.isFamilyListNotEmpty(familyController.getAllFamilies())) {
                     System.out.println(consoleMessage.getNumberRequest());
-                    menuChoice = scanner.next();
+                    menuChoice = scanner.nextLine();
                     menuChoice = inputValidator.checkMainMenuInput(menuChoice, 2, 5);
                     familyController.getFamiliesBiggerThan(Integer.parseInt(menuChoice));
                 }
@@ -58,7 +59,7 @@ public class AppRunner {
             case "4": {
                 if (inputValidator.isFamilyListNotEmpty(familyController.getAllFamilies())) {
                     System.out.println(consoleMessage.getNumberRequest());
-                    menuChoice = scanner.next();
+                    menuChoice = scanner.nextLine();
                     menuChoice = inputValidator.checkMainMenuInput(menuChoice, 2, 5);
                     familyController.getFamiliesLessThan(Integer.parseInt(menuChoice));
                 }
@@ -66,7 +67,7 @@ public class AppRunner {
             break;
             case "5": {
                 System.out.println(consoleMessage.getNumberRequest());
-                menuChoice = scanner.next();
+                menuChoice = scanner.nextLine();
                 menuChoice = inputValidator.checkMainMenuInput(menuChoice, 2, 5);
                 System.out.println(familyController.countFamiliesWithMemberNumber(Integer.parseInt(menuChoice)));
             }
@@ -77,7 +78,7 @@ public class AppRunner {
             case "7": {
                 if (inputValidator.isFamilyListNotEmpty(familyController.getAllFamilies())) {
                     System.out.println(consoleMessage.getNumberOfFamilyRequest());
-                    menuChoice = scanner.next();
+                    menuChoice = scanner.nextLine();
                     menuChoice = inputValidator.checkMainMenuInput(menuChoice, 1, familyController.getAllFamilies().size());
                     familyController.deleteFamilyByIndex(Integer.parseInt(menuChoice) - 1);
                 }
@@ -98,6 +99,10 @@ public class AppRunner {
                 }
             }
             break;
+            case "10": familyLoader2.loadData(familyController.getAllFamilies()); break;
+            //case "10": familyLoader.loadData(familyController.getAllFamilies()); break;
+            case "11": familyController.loadingFamilies(familyLoader2.getDataFromFile()); break;
+            //case "11": familyController.loadingFamilies(familyLoader.getDataFromFile()); break;
             default:
                 break;
         }
